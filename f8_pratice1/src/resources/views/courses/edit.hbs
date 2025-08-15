@@ -1,0 +1,51 @@
+<h1>Cập nhật khoá học </h1>
+
+<form action="/courses/{{course._id}}?_method=PUT" method="POST">
+  <div class="mb-3">
+    <label for="name" class="form-label">Tên khoá học</label>
+    <input
+      name="name"
+      type="text"
+      value="{{course.name}}"
+      class="form-control"
+      id="name"
+      placeholder="Example input placeholder"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Mô tả</label>
+    <textarea
+      name="description"
+      id="description"
+      class="form-control"
+      rows="3"
+    >{{course.description}}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="videoId" class="form-label">Video ID</label>
+    <input
+      name="videoId"
+      type="text"
+      value="{{course.videoId}}"
+      class="form-control"
+      id="videoId"
+      placeholder="Another input placeholder"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="level" class="form-label">Trình Độ</label>
+    <input
+      name="level"
+      type="text"
+      value="{{course.level}}"
+      class="form-control"
+      id="level"
+      placeholder="Another input placeholder"
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Lưu lại </button>
+</form>

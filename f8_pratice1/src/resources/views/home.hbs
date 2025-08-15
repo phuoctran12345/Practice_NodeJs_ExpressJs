@@ -1,0 +1,27 @@
+<h2 class="mb-4">Danh sách khóa học</h2>
+
+{{#if courses}}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {{#each courses}}
+  <div class="col">
+    <div class="card h-100">
+      {{#if image}}
+        <a href="/courses/{{slug}}">
+          <img src="{{image}}" class="card-img-top" alt="{{name}}" />
+        </a>
+      {{else}}
+        <a href="/courses/{{#if slug}}{{slug}}{{else}}{{_id}}{{/if}}">
+          <img src="https://placehold.co/600x400?text=No+Image" class="card-img-top" alt="{{name}}" />
+        </a>
+      {{/if}}
+      <div class="card-body">
+        <h5 class="card-title">{{name}}</h5>
+        <p class="card-text">{{description}}</p>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+{{else}}
+<p>Chưa có khóa học nào.</p>
+{{/if}}

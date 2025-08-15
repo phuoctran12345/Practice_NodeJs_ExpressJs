@@ -1,0 +1,21 @@
+<form method="get" action="/search">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Từ khoá</label>
+    <input type="text" name="fullname" />
+    <input type="text" name="age" />
+    <input
+      type="text"
+      class="form-control"
+      name="q"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      placeholder="Nhập từ khoá"
+      value="{{q}}"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+</form>
+
+{{#if q}}
+  <p>Kết quả cho: <strong>{{q}}</strong></p>
+{{/if}}
