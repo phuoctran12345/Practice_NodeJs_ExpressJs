@@ -1,4 +1,10 @@
 <h1>Khoá học của tôi </h1>
+<div>
+  <a href="/me/stored/courses">Danh sách khoá học</a>
+  <br></br>
+  <a href="/me/trash/courses">Khoá học đã xoá</a>
+</div>
+
 
 <div class="container mt-4">
   <table class="table">
@@ -29,12 +35,20 @@
           </button>
         </td>
       </tr>
+      {{else}}
+      <tr>
+        <td colspan="6" class="text-center">
+          <a href="">Không có dữ liệu</a>
+          <a href="/courses/create"> Đăng khoá học!</a>
+        </td>
+      </tr>
       {{/each}}
     </tbody>
   </table>
 
   <!-- Modal -->
-  <div class="modal fade" id="delete-course-modal" tabindex="-1" aria-labelledby="deleteCourseModalLabel" aria-hidden="true">
+  <div class="modal fade" id="delete-course-modal" tabindex="-1" aria-labelledby="deleteCourseModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -42,7 +56,9 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Bạn có xác nhận xoá khoá học này không?
+          Bạn có xác nhận xoá <b style="color: red;">VĨNH VIỄN</b> khoá học này không?
+          <br></br>
+          Sau khi xoá sẽ không khôi phục được bạn chắc chứ ?
         </div>
         <div class="modal-footer">
           <button id="btn-delete-course" type="button" class="btn btn-danger">Xoá Bỏ</button>

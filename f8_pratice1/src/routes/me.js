@@ -15,4 +15,8 @@ router.get("/stored/courses", meController.storedCourses);
 //     res.send('Test me route');
 // });
 
+
+// [GET] /me/stored/courses
+router.get("/trash/courses", meController.trashCourses);
+
 module.exports = router;

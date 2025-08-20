@@ -19,8 +19,14 @@ router.get("/:id/edit", courseController.edit);
 // PUT /courses/:id
 router.put("/:id", courseController.update);
 
+// PATCH /courses/:id                             // behavior ở đây là restore
+router.patch("/:id/restore ", courseController.restore);
+
 // DELETE /courses/:slug
 router.delete("/:id", courseController.destroy);
+
+// DELETE /courses/:slug
+router.delete("/:id/force", courseController.forceDestroy);
 
 // GET /courses/:slug
 router.get("/:slug", courseController.show);

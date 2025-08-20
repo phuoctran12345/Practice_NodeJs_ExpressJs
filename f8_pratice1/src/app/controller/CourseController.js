@@ -1,7 +1,8 @@
 const { mongooseToObject } = require("../../until/mongoose");
 const Course = require("../models/Course");
 const mongoose = require("mongoose");
-
+const slug = require('mongoose-slug-updater');
+const mongooseDelete = require('mongoose-delete');
 class CourseController {
   // GET /courses
   async index(req, res, next) {
@@ -61,7 +62,7 @@ class CourseController {
     const course = new Course(formData);
     course
       .save()
-      .then(() => res.redirect("/courses"))
+      .then(() => res.redirect("/me/stored/courses"))
       .catch((error) => {
         console.log("[ERROR] !!!!!!!!!!!!!!!!!!!!!!!");
       });
@@ -87,10 +88,37 @@ class CourseController {
   // [DELETE] /courses/:id
   destroy(req, res, next) {
     // xoá thiệt k phải là soft delete 
-    Course.deleteOne({ _id: req.params.id }, req.body)           //Chỗ ni hắn sẽ chọc vào database với modal là Course               ||Propotype sẽ là những cái ô màu xanh || Function sẽ là những cái ô màu tím
-      .then(() => res.redirect("back"))                          // Trả về location
-      .catch(next);
+    // Course.deleteOne({ _id: req.params.id }, req.body)           //Chỗ ni hắn sẽ chọc vào database với modal là Course               ||Propotype sẽ là những cái ô màu xanh || Function sẽ là những cái ô màu tím
+    //   .then(() => res.redirect("back"))                          // Trả về location
+    //   .catch(next);
+
+    Course.delete({ _id: req.params.id }, req.body)                 //Chỗ ni hắn sẽ chọc vào database với modal là Course               ||Propotype sẽ là những cái ô màu xanh || Function sẽ là những cái ô màu tím
+    .then(() => res.redirect("back"))                               // Trả về location
+    .catch(next);
   }
+
+  // [DELETE] /courses/:id/force                                    // xóa thiệt
+  forceDestroy(req, res, next) {
+    // xoá thiệt k phải là soft delete 
+    // Course.deleteOne({ _id: req.params.id }, req.body)           //Chỗ ni hắn sẽ chọc vào database với modal là Course               ||Propotype sẽ là những cái ô màu xanh || Function sẽ là những cái ô màu tím
+    //   .then(() => res.redirect("back"))                          // Trả về location
+    //   .catch(next);
+
+    Course.deleteOne({ _id: req.params.id }, req.body)                 
+    .then(() => res.redirect("back"))                               
+    .catch(next);
+  }
+
+
+   // [PATCH] /courses/:id/restore
+  restore(req, res, next) {
+    Course.restore ({ _id: req.params.id }, req.body)               //Chỗ ni hắn sẽ chọc vào database với modal là Course               ||Propotype sẽ là những cái ô màu xanh || Function sẽ là những cái ô màu tím
+    .then(() => res.redirect("back"))                               // Trả về location
+    .catch(next);
+  }
+
+
 }
 
 module.exports = new CourseController();
+

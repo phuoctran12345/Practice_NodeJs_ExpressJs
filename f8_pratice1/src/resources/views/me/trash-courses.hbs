@@ -1,0 +1,106 @@
+<h1>Khoá học của tôi </h1>
+<div>
+    <a href="/me/stored/courses">Danh sách khoá học</a>
+    <h3>Khoá học đã xoá</h3>
+</div>
+
+
+<div class="container mt-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên khoá học </th>
+                <th scope="col">Trình độ </th>
+                <th scope="col">Thời gian tạo</th>
+                <th scope="col">Sửa</th>
+                <th scope="col">Xoá</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <button data-id="{{this._id}}" class="btn btn-primary btn-restore" type="button">Khôi
+                        phục</button>
+                </td>
+                <td>
+                    <button data-id="{{this._id}}" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#delete-course-modal">
+                        Xoá vĩnh viễn
+                    </button>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    <a href="">Không có dữ liệu</a>
+                    <a href="/courses/create"> Đăng khoá học!</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="delete-course-modal" tabindex="-1" aria-labelledby="deleteCourseModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteCourseModalLabel">Xác nhận xóa</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có xác nhận xoá <b style="color: red;">VĨNH VIỄN</b> khoá học này không?
+                    <br></br>
+                    Sau khi xoá sẽ không khôi phục được bạn chắc chứ ?
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-delete-course" type="button" class="btn btn-danger">Xoá Vĩnh Viễn</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete hidden form -->
+<form name="delete-course-form" method="POST"></form>
+<form name="restore-course-form" method="POST"></form>
+
+<!-- Thêm jQuery trước script -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var courseId;
+        var deleteForm = document.forms['delete-course-form'];
+        var restoreForm = document.forms['restore-course-form'];
+        var btnDeleteCourse = document.getElementById('btn-delete-course');
+        var restoreBtn = $('.btn-restore');
+
+        // Khi modal hiển thị
+        $('#delete-course-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            courseId = button.data('id');
+            console.log('Course ID to delete:', courseId);
+        });
+
+        // Khi click nút xóa
+        btnDeleteCourse.onclick = function () {
+            deleteForm.action = '/courses/' + courseId + '/force?_method=DELETE';
+            deleteForm.submit();
+        };
+
+        // Restore btn clicked
+        restoreBtn.click(function () {
+            var restoreCourseId = $(this).data('id');
+            restoreForm.action = '/courses/' + restoreCourseId + '/restore?_method=PATCH';
+            restoreForm.submit();
+        });
+    });
+</script>

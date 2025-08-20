@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-// const slug = require('mongoose-slug-generator');
+const slug = require('mongoose-slug-updater');
+const mongooseDelete = require('mongoose-delete');
 const { Schema } = mongoose;
 
-// mongoose.plugin(slug);
+mongoose.plugin(slug);
 const CourseSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -16,5 +17,12 @@ const CourseSchema = new Schema(
   },
   { timestamps: true },
 );
+
+// Add plugins 
+CourseSchema.plugin(mongooseDelete, {
+  deletedAt : true ,
+  overrideMethods: 'all' ,
+});  // mongooose delete - search ở đây // ở đây giống như overriding bên java
+
 
 module.exports = mongoose.model("Course", CourseSchema, "courses");
